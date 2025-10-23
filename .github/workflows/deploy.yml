@@ -1,0 +1,67 @@
+name: Deploy SafetyConnect
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x]
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build application
+      run: npm run build
+      
+    - name: Test build (optional)
+      run: |
+        # Add any tests here if needed
+        echo "Build completed successfully"
+        
+    # Deploy to Vercel (if using Vercel)
+    - name: Deploy to Vercel
+      if: github.ref == 'refs/heads/main'
+      uses: amondnet/vercel-action@v25
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        vercel-args: '--prod'
+        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        
+    # Alternative: Deploy to Netlify (if using Netlify)
+    # - name: Deploy to Netlify
+    #   if: github.ref == 'refs/heads/main'
+    #   uses: nwtgck/actions-netlify@v2.0
+    #   with:
+    #     publish-dir: './dist'
+    #     production-branch: main
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    #   env:
+    #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+    # Alternative: Deploy to GitHub Pages
+    # - name: Deploy to GitHub Pages
+    #   if: github.ref == 'refs/heads/main'
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     publish_dir: ./dist
