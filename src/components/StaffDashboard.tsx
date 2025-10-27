@@ -1176,6 +1176,13 @@ export function StaffDashboard({
                           )}
                         </p>
                       )}
+                      {(selectedReport.barangay || selectedReport.purok || selectedReport.street) && (
+                        <div className="mt-2 pt-2 border-t border-gray-200 space-y-1">
+                          {selectedReport.barangay && <p><strong>Barangay:</strong> {selectedReport.barangay}</p>}
+                          {selectedReport.purok && <p><strong>Purok:</strong> {selectedReport.purok}</p>}
+                          {selectedReport.street && <p><strong>Street:</strong> {selectedReport.street}</p>}
+                        </div>
+                      )}
                     </div>
                   </div>
 

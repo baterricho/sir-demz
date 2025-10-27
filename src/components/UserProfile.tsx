@@ -321,6 +321,36 @@ export function UserProfile({ user, reports, onNavigate, onUserUpdate, onLogout 
                       />
                     </div>
                     <div>
+                      <label className="text-sm font-medium text-gray-700">Barangay</label>
+                      <Input
+                        value={editingUser.barangay || ''}
+                        onChange={(e) => setEditingUser(prev => ({ ...prev, barangay: e.target.value }))}
+                        disabled={!isEditing}
+                        placeholder="e.g., San Jose"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-700">Purok</label>
+                      <Input
+                        value={editingUser.purok || ''}
+                        onChange={(e) => setEditingUser(prev => ({ ...prev, purok: e.target.value }))}
+                        disabled={!isEditing}
+                        placeholder="e.g., Mahogany"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-700">Street</label>
+                      <Input
+                        value={editingUser.street || ''}
+                        onChange={(e) => setEditingUser(prev => ({ ...prev, street: e.target.value }))}
+                        disabled={!isEditing}
+                        placeholder="e.g., Elm Street"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
                       <label className="text-sm font-medium text-gray-700">Emergency Contact</label>
                       <Input
                         value={editingUser.emergencyContact || ''}

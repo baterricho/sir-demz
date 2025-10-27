@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -39,6 +39,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { toast } from "sonner@2.0.3";
+import { PUERTO_PRINCESA_BARANGAYS } from "../utils/barangays";
 
 interface CreateReportProps {
   user: UserType;
@@ -67,12 +68,24 @@ export function CreateReport({
     emergencyType: "",
     emergencyDetails: "",
     location: "",
+    barangay: user.barangay || "",
+    purok: user.purok || "",
+    street: user.street || "",
     attachments: [] as string[],
   });
   const [locationStatus, setLocationStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [barangaySearch, setBarangaySearch] = useState("");
+
+  // Filter barangays based on search input
+  const filteredBarangays = useMemo(() => {
+    if (!barangaySearch) return PUERTO_PRINCESA_BARANGAYS;
+    return PUERTO_PRINCESA_BARANGAYS.filter((b) =>
+      b.toLowerCase().includes(barangaySearch.toLowerCase())
+    );
+  }, [barangaySearch]);
 
   const categories = [
     "Infrastructure",
@@ -174,6 +187,9 @@ export function CreateReport({
         emergencyType: "",
         emergencyDetails: "",
         location: "",
+        barangay: user.barangay || "",
+        purok: user.purok || "",
+        street: user.street || "",
         attachments: [],
       });
       setLocationStatus("idle");
@@ -463,7 +479,7 @@ export function CreateReport({
 
               {/* Location */}
               <div className="space-y-2">
-                <Label htmlFor="location">Location</Label>
+                <Label htmlFor="location">Location Address</Label>
                 <div className="flex gap-2">
                   <Input
                     id="location"
@@ -502,6 +518,61 @@ export function CreateReport({
                     ✗ Failed to detect location
                   </p>
                 )}
+              </div>
+
+              {/* Barangay, Purok, Street */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="barangay">Barangay</Label>
+                  <Select
+                    value={formData.barangay}
+                    onValueChange={(value) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        barangay: value,
+                      }))
+                    }
+                  >
+                    <SelectTrigger id="barangay">
+                      <SelectValue placeholder="Select a barangay" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {PUERTO_PRINCESA_BARANGAYS.map((barangay) => (
+                        <SelectItem key={barangay} value={barangay}>
+                          {barangay}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="purok">Purok</Label>
+                  <Input
+                    id="purok"
+                    placeholder="e.g., Mahogany"
+                    value={formData.purok}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        purok: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="street">Street</Label>
+                  <Input
+                    id="street"
+                    placeholder="e.g., Elm Street"
+                    value={formData.street}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        street: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
               </div>
 
               {/* File Upload */}

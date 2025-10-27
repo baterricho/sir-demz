@@ -342,6 +342,15 @@ export function UserDashboard({ user, reports, onNavigate, onLogout }: UserDashb
                   <p className="text-gray-600">{selectedReport.location}</p>
                 </div>
               )}
+
+              {(selectedReport.barangay || selectedReport.purok || selectedReport.street) && (
+                <div className="bg-gray-50 p-3 rounded-lg space-y-1 text-sm border-l-4 border-blue-200">
+                  <h4 className="font-medium text-gray-800 mb-2">Location Details</h4>
+                  {selectedReport.barangay && <p><strong>Barangay:</strong> {selectedReport.barangay}</p>}
+                  {selectedReport.purok && <p><strong>Purok:</strong> {selectedReport.purok}</p>}
+                  {selectedReport.street && <p><strong>Street:</strong> {selectedReport.street}</p>}
+                </div>
+              )}
               
               <div>
                 <h4 className="font-medium text-gray-800 mb-1">Timeline</h4>

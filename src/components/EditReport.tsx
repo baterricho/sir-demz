@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { User as UserType, Report, ReportEdit, Attachment, Page } from '../App';
 import { toast } from 'sonner';
+import { PUERTO_PRINCESA_BARANGAYS } from '../utils/barangays';
 
 interface EditReportProps {
   user: UserType;
@@ -40,6 +41,9 @@ export function EditReport({ user, report, onUpdateReport, onNavigate, onLogout 
     category: report.category,
     description: report.description,
     location: report.location,
+    barangay: report.barangay,
+    purok: report.purok,
+    street: report.street,
     isEmergency: report.isEmergency,
     isConfidential: report.isConfidential,
     emergencyType: report.emergencyType,
@@ -61,6 +65,9 @@ export function EditReport({ user, report, onUpdateReport, onNavigate, onLogout 
       editingReport.category !== report.category ||
       editingReport.description !== report.description ||
       editingReport.location !== report.location ||
+      editingReport.barangay !== report.barangay ||
+      editingReport.purok !== report.purok ||
+      editingReport.street !== report.street ||
       editingReport.isEmergency !== report.isEmergency ||
       editingReport.isConfidential !== report.isConfidential ||
       editingReport.emergencyType !== report.emergencyType ||
@@ -100,6 +107,9 @@ export function EditReport({ user, report, onUpdateReport, onNavigate, onLogout 
       if (editingReport.description !== report.description) changes.push('Description updated');
       if (editingReport.category !== report.category) changes.push('Category changed');
       if (editingReport.location !== report.location) changes.push('Location updated');
+      if (editingReport.barangay !== report.barangay) changes.push('Barangay updated');
+      if (editingReport.purok !== report.purok) changes.push('Purok updated');
+      if (editingReport.street !== report.street) changes.push('Street updated');
       if (editingReport.isEmergency !== report.isEmergency) {
         changes.push(editingReport.isEmergency ? 'Marked as emergency' : 'Unmarked as emergency');
       }
@@ -393,7 +403,52 @@ export function EditReport({ user, report, onUpdateReport, onNavigate, onLogout 
                       </div>
                     </div>
                   </div>
+                </div>
 
+                {/* Barangay, Purok, Street */}
+                <div className="border-t pt-6">
+                  <h3 className="font-semibold text-gray-800 mb-4">Location Details</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="text-sm font-medium text-gray-700">Barangay</label>
+                      <Select
+                        value={editingReport.barangay || ''}
+                        onValueChange={(value) => setEditingReport(prev => ({ ...prev, barangay: value }))}
+                      >
+                        <SelectTrigger className="mt-1">
+                          <SelectValue placeholder="Select a barangay" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {PUERTO_PRINCESA_BARANGAYS.map((barangay) => (
+                            <SelectItem key={barangay} value={barangay}>
+                              {barangay}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-700">Purok</label>
+                      <Input
+                        value={editingReport.purok || ''}
+                        onChange={(e) => setEditingReport(prev => ({ ...prev, purok: e.target.value }))}
+                        placeholder="e.g., Mahogany"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-700">Street</label>
+                      <Input
+                        value={editingReport.street || ''}
+                        onChange={(e) => setEditingReport(prev => ({ ...prev, street: e.target.value }))}
+                        placeholder="e.g., Elm Street"
+                        className="mt-1"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <div>
                       <label className="text-sm font-medium text-gray-700">Description</label>

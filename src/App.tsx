@@ -41,6 +41,9 @@ export interface User {
   type: UserType;
   phoneNumber?: string;
   address?: string;
+  barangay?: string;
+  purok?: string;
+  street?: string;
   dateOfBirth?: string;
   gender?: string;
   emergencyContact?: string;
@@ -105,6 +108,9 @@ export interface Report {
   emergencyType?: string;
   emergencyDetails?: string;
   location?: string;
+  barangay?: string;
+  purok?: string;
+  street?: string;
   coordinates?: {
     lat: number;
     lng: number;
@@ -351,6 +357,9 @@ export default function App() {
       isConfidential: false,
       location:
         "Main Street & Oak Avenue, Puerto Princesa City, Palawan",
+      barangay: "San Jose",
+      purok: "Mahogany",
+      street: "Elm Street (45-67)",
       coordinates: {
         lat: 9.7392,
         lng: 118.7353
@@ -388,6 +397,9 @@ export default function App() {
       isConfidential: false,
       location:
         "Barangay Community Center, Puerto Princesa City, Palawan",
+      barangay: "Liwanag",
+      purok: "Bayview",
+      street: "Community Avenue",
       coordinates: {
         lat: 9.7421,
         lng: 118.7285
@@ -428,6 +440,9 @@ export default function App() {
       isConfidential: false,
       location:
         "Riverside Park Playground, Puerto Princesa City, Palawan",
+      barangay: "Maunlad (Poblacion)",
+      purok: "Green Park",
+      street: "Riverside Avenue",
       coordinates: {
         lat: 9.7456,
         lng: 118.7412
@@ -458,6 +473,9 @@ export default function App() {
       isConfidential: false,
       location:
         "Elm Street (45-67), Puerto Princesa City, Palawan",
+      barangay: "San Jose",
+      purok: "Mahogany",
+      street: "Elm Street (45-67)",
       coordinates: {
         lat: 9.7381,
         lng: 118.7295
@@ -484,6 +502,9 @@ export default function App() {
       isConfidential: false,
       location:
         "Behind Plaza Shopping Center, Puerto Princesa City, Palawan",
+      barangay: "Masigla (Poblacion)",
+      purok: "Commercial",
+      street: "Mall Avenue",
       coordinates: {
         lat: 9.7405,
         lng: 118.7368
@@ -516,6 +537,9 @@ export default function App() {
       isConfidential: false,
       location:
         "Oakwood Neighborhood Playground, Puerto Princesa City, Palawan",
+      barangay: "Santa Monica",
+      purok: "Oakwood",
+      street: "Park Lane",
       attachments: [],
       assignedStaff: "Parks & Recreation",
       canEdit: false,
@@ -549,6 +573,9 @@ export default function App() {
       isConfidential: false,
       location:
         "Park Avenue & 3rd Street Intersection, Puerto Princesa City, Palawan",
+      barangay: "Princesa (Poblacion)",
+      purok: "Downtown",
+      street: "Park Avenue & 3rd Street",
       attachments: [],
       assignedStaff: "Traffic Management",
       resolutionNotes:
@@ -585,6 +612,9 @@ export default function App() {
       isConfidential: false,
       location:
         "River Road near Bridge, Puerto Princesa City, Palawan",
+      barangay: "Manggahan (Poblacion)",
+      purok: "Riverside",
+      street: "River Road",
       attachments: [],
       canEdit: true,
       editHistory: [],
