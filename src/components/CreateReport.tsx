@@ -578,7 +578,7 @@ export function CreateReport({
               {/* File Upload */}
               <div className="space-y-2">
                 <Label htmlFor="attachments">
-                  Attachments (Optional)
+                  Attachments (Required)
                 </Label>
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
                   <div className="text-center">
