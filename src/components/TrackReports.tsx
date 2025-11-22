@@ -465,17 +465,17 @@ export function TrackReports({ user, reports, onNavigate, onLogout }: TrackRepor
                   </div>
                   <div>
                     <strong className={selectedLocationReport.isEmergency ? 'text-red-700' : 'text-blue-700'}>
-                      Category (Kategorya):
+                      Category:
                     </strong> {selectedLocationReport.category}
                   </div>
                   <div>
                     <strong className={selectedLocationReport.isEmergency ? 'text-red-700' : 'text-blue-700'}>
-                      Date Submitted (Petsa ng Pagsusumite):
+                      Date Submitted:
                     </strong> {new Date(selectedLocationReport.dateSubmitted).toLocaleDateString()}
                   </div>
                   <div>
                     <strong className={selectedLocationReport.isEmergency ? 'text-red-700' : 'text-blue-700'}>
-                      Status (Katayuan):
+                      Status:
                     </strong> 
                     <Badge className={`ml-2 ${getStatusColor(selectedLocationReport.status)} text-white`}>
                       {selectedLocationReport.status}
@@ -484,12 +484,12 @@ export function TrackReports({ user, reports, onNavigate, onLogout }: TrackRepor
                 </div>
                 <div className="mt-2">
                   <strong className={selectedLocationReport.isEmergency ? 'text-red-700' : 'text-blue-700'}>
-                    Title (Pamagat):
+                    Title:
                   </strong> {selectedLocationReport.title}
                 </div>
                 <div className="mt-2">
                   <strong className={selectedLocationReport.isEmergency ? 'text-red-700' : 'text-blue-700'}>
-                    Location (Lokasyon):
+                    Location:
                   </strong> {selectedLocationReport.location}
                 </div>
               </div>
