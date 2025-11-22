@@ -513,7 +513,7 @@ export function TrackReports({ user, reports, onNavigate, onLogout }: TrackRepor
                   variant="outline"
                   onClick={() => setSelectedLocationReport(null)}
                 >
-                  Close (Isara)
+                  Close
                 </Button>
               </div>
             </div>
